@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import NavBar from "../components/NavBar";
 import Upload from "../pages/Upload";
 import Token from "../pages/Token";
+import Files from "../pages/Files.jsx";
 
 const AppRouter = () => {
     return (
@@ -11,6 +12,7 @@ const AppRouter = () => {
             <NavBar />
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/files" element={<Files />} />
                 <Route path="/upload" element={<Upload />} />
                 <Route path="/token" element={<Token />} />
             </Routes>

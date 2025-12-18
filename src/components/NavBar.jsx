@@ -20,6 +20,12 @@ const NavBar = () => {
                             >Home</NavLink>
                         </li>
                         <li className="nav-item">
+                            <NavLink className="nav-link text-white mr-5" to="/files" style={({ isActive }) => ({
+                                textDecoration: isActive ? "underline" : "none",
+                            })}
+                            >Files</NavLink>
+                        </li>
+                        <li className="nav-item">
                             <NavLink className="nav-link text-white mr-5" to="/upload" style={({ isActive }) => ({
                                 textDecoration: isActive ? "underline" : "none",
                             })}

@@ -1,7 +1,7 @@
 
 export const API_URL = import.meta.env.VITE_API_URL;
 
-export const uploadFile = async (file, title, description, apiKey) => {
+export const uploadFile = async (file, title, description, token) => {
     const formData = new FormData();
 
     formData.append("FormFile", file);
@@ -12,7 +12,7 @@ export const uploadFile = async (file, title, description, apiKey) => {
     const response = await fetch(`${API_URL}/media/upload`, {
         method: "POST",
         headers: {
-            Authorization: apiKey
+            Authorization: token
         },
         body: formData,
     });
@@ -85,4 +85,39 @@ export const getHealthInfo = async () => {
     }
 
     return response.json();
+};
+
+export const getItemsByToken = async (token) => {
+    const response = await fetch(`${API_URL}/media/items-by-tokens`, {
+        method: "GET",
+        headers: {
+            Authorization: token ?? ""
+        },
+    });
+
+    if (!response.ok) {
+        const error = await response.json();
+        const apiError = new Error(error.message);
+
+        apiError.statusCode = response.status;
+        throw apiError;
+    }
+
+    return response.json();
+};
+
+export const getFileStream = async (id) => {
+    const response = await fetch(`${API_URL}/media/${id}/file`, {
+        method: "GET",
+    });
+
+    if (!response.ok) {
+        const error = await response.json();
+        const apiError = new Error(error.message);
+
+        apiError.statusCode = response.status;
+        throw apiError;
+    }
+
+    return response;
 }

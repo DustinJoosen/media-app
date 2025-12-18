@@ -86,7 +86,7 @@ const TokenInfo = () => {
                 )}
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
-                        <label id="token" className="form-label">Token</label>
+                        <label htmlFor="token" className="form-label">Token</label>
                         <input id="token" placeholder="H1Ai ... 464g==" type="text" className="form-control"
                             value={token} onChange={(e) => setToken(e.target.value)} />
                     </div>

@@ -7,7 +7,7 @@ const Upload = () => {
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [apiKey, setApiKey] = useState("H1Ai6l0uY7r74udLCK0Cf6/ieLSJwsAIzDfGTFBtuNyVTlbLX3tN/G9D+yrIQcb5hvPIrKOTxPwgVHZGqg464g==");
+    const [token, setToken] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -22,12 +22,12 @@ const Upload = () => {
         e.preventDefault();
 
         if (!file) return alert("Please select a file.");
-        if (!apiKey) return alert("Please enter an api key");
+        if (!token) return alert("Please enter a token");
 
         setIsLoading(true);
 
         try {
-            await uploadFile(file, title, description, apiKey);
+            await uploadFile(file, title, description, token);
             navigate("/");
         } catch (err) {
             if (err.statusCode === 404 || err.statusCode === 401) {
@@ -53,9 +53,9 @@ const Upload = () => {
                     )}
                     <form onSubmit={handleSubmit} className="w-75">
                         <div className="mb-3">
-                            <label htmlFor="apiKeyInput" className="form-label">API Auth Key</label>
-                            <input type="text" id="apiKeyInput" className="form-control" value={apiKey}
-                                   placeholder="H1Ai ... 464g==" onChange={(e) => setApiKey(e.target.value)} />
+                            <label htmlFor="tokenInput" className="form-label">Token</label>
+                            <input type="text" id="tokenInput" className="form-control" value={token}
+                                   placeholder="H1Ai ... 464g==" onChange={(e) => setToken(e.target.value)} />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="title" className="form-label">File title (optional)</label>
@@ -69,7 +69,7 @@ const Upload = () => {
                         </div>
                         <FileUpload onFileSelect={handleFileSelect} />
                         <button type="submit" className="btn text-white p-3"
-                                disabled={file == null || apiKey === "" || isLoading}
+                                disabled={file == null || token === "" || isLoading}
                                 style={{
                                     background: "linear-gradient(to right, #ff7171, #F1AE4A)",
                                     boxShadow: "2px 1px 10px gray",
