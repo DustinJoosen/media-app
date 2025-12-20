@@ -42,6 +42,5 @@ jobs:
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
             rm -rf /home/syter/Services/media/media-web &&
             mkdir -p /home/syter/Services/media/media-web &&
-            tar xzf /tmp/media-web-artifact.tar.gz -C /home/syter/Services/media/media-web &&
-            sudo systemctl restart media-web.service
+            tar xzf /tmp/media-web-artifact.tar.gz -C /home/syter/Services/media/media-web
           "
