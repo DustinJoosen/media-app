@@ -1,0 +1,47 @@
+name: Deploy Media Web
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SERVER_SSH_KEY }}
+
+      - name: Build React app
+        run: |
+          npm install
+          npm run build
+
+      - name: Package build
+        run: |
+          tar czf media-web-artifact.tar.gz -C build .
+
+      - name: Add server to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Upload artifact
+        run: |
+          scp media-web-artifact.tar.gz \
+            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/tmp/
+
+      - name: Deploy and restart service
+        run: |
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
+            rm -rf /home/syter/Services/media/media-web &&
+            mkdir -p /home/syter/Services/media/media-web &&
+            tar xzf /tmp/media-web-artifact.tar.gz -C /home/syter/Services/media/media-web &&
+            sudo systemctl restart media-web.service
+          "
