@@ -106,22 +106,16 @@ export const getItemsByToken = async (token) => {
     return response.json();
 };
 
-export const getFilePreview = async (id) => {
-    const response = await fetch(`${API_URL}/media/${id}/preview`, {
-        method: "GET",
+export const deleteMediaItem = async (token, itemId) => {
+    const response = await fetch(`${API_URL}/media/${itemId}/delete`, {
+        method: "DELETE",
+        headers: {
+            Authorization: token,
+        },
     });
 
-    if (!response.ok) {
-        const error = await response.json();
-        const apiError = new Error(error.message);
-
-        apiError.statusCode = response.status;
-        throw apiError;
-    }
-
-    return response;
-}
-
+    return response.ok;
+};
 
 export const getFileDownload = async (id) => {
     const response = await fetch(`${API_URL}/media/${id}/download`, {

@@ -5,6 +5,7 @@ import {uploadFile, getItemsByToken} from "../services/apiService.js";
 
 const Files = () => {
 	const [token, setToken] = useState();
+	const [usedToken, setUsedToken] = useState();
 	const [error, setError] = useState(null);
 	const [items, setItems] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
@@ -17,6 +18,7 @@ const Files = () => {
 		setIsLoading(true);
 		setError(null)
 		setItems([]);
+		setUsedToken(token);
 
 		try {
 			let result = await getItemsByToken(token);
@@ -68,7 +70,7 @@ const Files = () => {
 						</div>
 					)}
 					{(items.length > 0) && (
-						<FileList files={items} />
+						<FileList files={items} setFiles={setItems} token={usedToken} />
 					)}
 				</div>
 			</div>
