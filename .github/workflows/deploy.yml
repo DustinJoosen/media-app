@@ -42,5 +42,5 @@ jobs:
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
             rm -rf /home/syter/Services/media/media-app &&
             mkdir -p /home/syter/Services/media/media-app &&
-            tar xzf /tmp/media-web-artifact.tar.gz -C /home/syter/Services/media/media-app
+            tar xzf /tmp/media-app-artifact.tar.gz -C /home/syter/Services/media/media-app
           "
