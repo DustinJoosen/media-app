@@ -1,12 +1,14 @@
 import {getFileDownload} from "../services/apiService.js";
 import MediaItemPreviewPopup from "./Popups/MediaItemPreviewPopup.jsx";
-import {useState} from "react";
+import React, {useState} from "react";
 import MediaItemDeletePopup from "./Popups/MediaItemDeletePopup.jsx";
 import token from "../pages/Token.jsx";
+import MediaItemModifyPopup from "./Popups/MediaItemModifyPopup.jsx";
 
 const FileList = ({ files, setFiles, token }) => {
 	const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 	const [isDeletedOpen, setIsDeletedOpen] = useState(false);
+	const [isModifyOpen, setIsModifyOpen] = useState(false);
 	const [selectedMediaId, setSelectedMediaId] = useState(null);
 
 	const togglePreviewPopup = (id) => {
@@ -19,8 +21,21 @@ const FileList = ({ files, setFiles, token }) => {
 		setSelectedMediaId(id);
 	};
 
+	const toggleModifyPopup = (id) => {
+		setIsModifyOpen(!isModifyOpen);
+		setSelectedMediaId(id);
+	};
+
+
 	const handleDeleteSuccess = (id) => {
 		setFiles((oldFiles) => oldFiles.filter((file) => file.id !== id));
+	};
+
+	const handleModifySuccess = (id, title, description) => {
+		setFiles((oldFiles) => oldFiles.map((file) => file.id === id
+			? { ...file, title, description }
+			: file
+		))
 	};
 
 	const handleDownload = async (id) => {
@@ -89,30 +104,37 @@ const FileList = ({ files, setFiles, token }) => {
 									<i className="bi bi-download"></i>
 								</button>
 								<button className="btn btn-warning btn-sm" style={actionButtonStyle}
-									onClick={() => alert(`Modify ${item.id} clicked`)}>
+										onClick={() => toggleModifyPopup(item.id)}>
 									<i className="bi bi-pencil"></i>
 								</button>
 								<button className="btn btn-danger btn-sm" style={actionButtonStyle}
 									onClick={() => toggleDeletePopup(item.id)}>
 									<i className="bi bi-trash"></i>
 								</button>
-								<MediaItemPreviewPopup
-									mediaId={selectedMediaId}
-									show={isPreviewOpen}
-									togglePopup={togglePreviewPopup}
-								/>
-								<MediaItemDeletePopup
-									mediaId={selectedMediaId}
-									token={token}
-									show={isDeletedOpen}
-									onDelete={handleDeleteSuccess}
-									togglePopup={toggleDeletePopup}
-								/>
 							</div>
 						</div>
 					</div>
 				</div>
 			))}
+			<MediaItemPreviewPopup
+				mediaId={selectedMediaId}
+				show={isPreviewOpen}
+				togglePopup={togglePreviewPopup}
+			/>
+			<MediaItemDeletePopup
+				mediaId={selectedMediaId}
+				token={token}
+				show={isDeletedOpen}
+				onDelete={handleDeleteSuccess}
+				togglePopup={toggleDeletePopup}
+			/>
+			<MediaItemModifyPopup
+				mediaId={selectedMediaId}
+				token={token}
+				show={isModifyOpen}
+				onModify={handleModifySuccess}
+				togglePopup={toggleModifyPopup}
+			/>
 		</div>
 	);
 };

@@ -5,7 +5,7 @@ import Pagination from "../components/Pagination.jsx";
 
 
 const Files = () => {
-	const [token, setToken] = useState();
+	const [token, setToken] = useState("");
 	const [usedToken, setUsedToken] = useState();
 	const [error, setError] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
@@ -63,7 +63,7 @@ const Files = () => {
 						<input id="token" placeholder="H1Ai ... 464g==" type="text" className="form-control"
 							   value={token} onChange={(e) => setToken(e.target.value)} />
 						<button type="submit" className="btn text-white p-2 w-100 mt-3"
-								disabled={token === "" || isLoading}
+								disabled={token?.trim() === "" || isLoading}
 								style={{
 									background: "linear-gradient(to right, #ff7171, #F1AE4A)",
 									boxShadow: "2px 1px 10px gray",

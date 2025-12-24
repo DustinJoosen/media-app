@@ -23,7 +23,7 @@ const MediaItemDeletePopup = ({ show, togglePopup, onDelete, token, mediaId }) =
 	return (
 		<Modal show={show} onHide={togglePopup}>
 			<Modal.Header closeButton>
-				<Modal.Title>Delete this image</Modal.Title>
+				<Modal.Title>Delete this item</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<img src={imageSrc} alt="Image preview" className="img-fluid mb-3"

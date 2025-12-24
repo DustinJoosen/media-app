@@ -117,6 +117,23 @@ export const deleteMediaItem = async (token, itemId) => {
     return response.ok;
 };
 
+export const modifyMediaItem = async (token, itemId, title, description) => {
+    const response = await fetch(`${API_URL}/media/${itemId}/modify`, {
+        method: "PUT",
+        headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            title,
+            description: description.trim() === "" ? null : description
+        }),
+    });
+
+    return response.ok;
+};
+
+
 export const getFileDownload = async (id) => {
     const response = await fetch(`${API_URL}/media/${id}/download`, {
         method: "GET",
@@ -133,3 +150,18 @@ export const getFileDownload = async (id) => {
     return response;
 }
 
+export const getItemInfo = async (id) => {
+    const response = await fetch(`${API_URL}/media/${id}/info`, {
+        method: "GET",
+    });
+
+    if (!response.ok) {
+        const error = await response.json();
+        const apiError = new Error(error.message);
+
+        apiError.statusCode = response.status;
+        throw apiError;
+    }
+
+    return response.json();
+};
