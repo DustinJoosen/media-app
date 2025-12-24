@@ -87,8 +87,8 @@ export const getHealthInfo = async () => {
     return response.json();
 };
 
-export const getItemsByToken = async (token) => {
-    const response = await fetch(`${API_URL}/media/items-by-tokens`, {
+export const getItemsByToken = async (token, page) => {
+    const response = await fetch(`${API_URL}/media/items-by-tokens?PageNumber=${page}`, {
         method: "GET",
         headers: {
             Authorization: token ?? ""

@@ -1,28 +1,41 @@
 import FileList from "../components/FileList.jsx";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {uploadFile, getItemsByToken} from "../services/apiService.js";
+import Pagination from "../components/Pagination.jsx";
 
 
 const Files = () => {
 	const [token, setToken] = useState();
 	const [usedToken, setUsedToken] = useState();
 	const [error, setError] = useState(null);
-	const [items, setItems] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
+	const [items, setItems] = useState([]);
+	const [pagination, setPagination] = useState({
+		pageNumber: 1,
+		pageSize: 10,
+		totalItems: 0,
+		totalPages: 0
+	});
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		if (!token) return alert("Please enter a token.");
 
-		setIsLoading(true);
-		setError(null)
 		setItems([]);
 		setUsedToken(token);
 
+		await fetchItems();
+	}
+
+	const fetchItems = async (page = 1) => {
+		setIsLoading(true);
+		setError(null)
+
 		try {
-			let result = await getItemsByToken(token);
+			let result = await getItemsByToken(token, page);
 			setItems(result["items"]);
+			setPagination(result["pagination"]);
 		} catch (err) {
 			setItems([]);
 			if (err.statusCode === 404 || err.statusCode === 401) {
@@ -33,6 +46,11 @@ const Files = () => {
 		} finally {
 			setIsLoading(false);
 		}
+
+	}
+
+	const handlePageChange = async (page) => {
+		await fetchItems(page);
 	}
 
 	return (
@@ -70,7 +88,11 @@ const Files = () => {
 						</div>
 					)}
 					{(items.length > 0) && (
-						<FileList files={items} setFiles={setItems} token={usedToken} />
+						<>
+							<FileList files={items} setFiles={setItems} token={usedToken} />
+							<Pagination currentPage={pagination.pageNumber} totalPages={pagination.totalPages}
+										onPageChange={handlePageChange} />
+						</>
 					)}
 				</div>
 			</div>
