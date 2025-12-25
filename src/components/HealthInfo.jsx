@@ -17,7 +17,7 @@ const HealthStatus = () => {
         };
 
         fetchHealthData();
-        const intervalId = setInterval(fetchHealthData, 1000);
+        const intervalId = setInterval(fetchHealthData, 10000);
         return () => clearInterval(intervalId);
     }, []);
 
@@ -36,7 +36,7 @@ const HealthStatus = () => {
     return (
         <div className="container mt-5">
             <div className="row">
-                <div className="col-md-7">
+                <div className="col-md-6">
                     <h5 className="text-center">Backend Health Status</h5>
                     <ul className="list-group">
                         <li className="list-group-item d-flex justify-content-between align-items-center">
@@ -52,37 +52,34 @@ const HealthStatus = () => {
                             </span>
                         </li>
                         <li className="list-group-item d-flex justify-content-between align-items-center">
-                            <strong>Environment:</strong>
-                            <span>{healthInfo.environment}</span>
+                            <strong>Environment:</strong> {healthInfo.runtime.environment}
                         </li>
                         <li className="list-group-item d-flex justify-content-between align-items-center">
-                            <strong>Configuration:</strong>
-                            <span>{healthInfo.configuration}</span>
+                            <strong>Build:</strong> {healthInfo.runtime.build}
                         </li>
                         <li className="list-group-item d-flex justify-content-between align-items-center">
-                            <strong>Uptime:</strong>
-                            <span>{healthInfo.uptime}</span>
-                        </li>
-                        <li className="list-group-item d-flex justify-content-between align-items-center">
-                            <strong>Start Time:</strong>
-                            <span>{healthInfo.startTime}</span>
-                        </li>
-                    </ul>
-                </div>
-                <div className="col-md-5">
-                    <h5 className="text-center">Database Status</h5>
-                    <ul className="list-group">
-                        <li className="list-group-item d-flex justify-content-between align-items-center">
-                            <strong>Status:</strong>
-                            <span className={`badge bg-${healthInfo.database.isRunning ? 'success' : 'danger'}`}>
-                                {healthInfo.database.isRunning ? "Running" : "Not running"}
+                            <strong>Database:</strong>
+                            <span className={`badge bg-${healthInfo.dependencies.database === "Healthy" ? 'success' : 'danger'}`}>
+                                {healthInfo.dependencies.database}
                             </span>
                         </li>
                         <li className="list-group-item d-flex justify-content-between align-items-center">
-                            <strong>Server:</strong> {healthInfo.database.server}
+                            <strong>Version:</strong>
+                            <span>{healthInfo.version}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div className="col-md-6">
+                    <h5 className="text-center">Runtime Status</h5>
+                    <ul className="list-group">
+                        <li className="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Uptime:</strong> {healthInfo.runtime.uptime}
                         </li>
                         <li className="list-group-item d-flex justify-content-between align-items-center">
-                            <strong>Version:</strong> {healthInfo.database.version}
+                            <strong>Start Time:</strong> {healthInfo.runtime.startTime}
+                        </li>
+                        <li className="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Last fetch:</strong> {healthInfo.runtime.timestamp}
                         </li>
                     </ul>
                 </div>
