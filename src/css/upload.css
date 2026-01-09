@@ -1,0 +1,19 @@
+.upload-container {
+    max-width: 95%;
+}
+
+@media (min-width: 992px) {
+    .upload-container {
+        max-width: 50%;
+    }
+}
+
+.upload-form {
+    max-width: 100%;
+}
+
+@media (min-width: 992px) {
+    .upload-form {
+        max-width: 75%;
+    }
+}

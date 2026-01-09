@@ -1,0 +1,13 @@
+@media (max-width: 576px) {
+    .filelist-item .btn-group {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+    }
+
+    .filelist-item .btn-sm {
+        border-radius: 0;
+        width: 80%;
+        float: right;
+    }
+}

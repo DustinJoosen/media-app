@@ -3,6 +3,7 @@ import FileUpload from "../components/FileUpload.jsx";
 import {uploadFile} from "../services/apiService.js";
 import {redirect, useNavigate} from "react-router-dom";
 import {validateFile} from "../validation/upload.js";
+import "../css/upload.css";
 
 const Upload = () => {
     const [file, setFile] = useState(null);
@@ -70,7 +71,7 @@ const Upload = () => {
 
     return (
 
-        <div className="container my-4 w-50">
+        <div className="container my-4 upload-container">
             <div className="card shadow-sm h-100">
                 <div className="card-body">
                     <h5 className="mb-4">Upload a Media File</h5>
@@ -79,7 +80,7 @@ const Upload = () => {
                             {error}
                         </div>
                     )}
-                    <form onSubmit={handleSubmit} className="w-75">
+                    <form onSubmit={handleSubmit} className="upload-form">
                         <div className="mb-3">
                             <label htmlFor="tokenInput" className="form-label">Token</label>
                             <input type="text" id="tokenInput" className="form-control" value={token}

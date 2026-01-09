@@ -2,6 +2,7 @@ import FileList from "../components/FileList.jsx";
 import React, {useEffect, useState} from "react";
 import {uploadFile, getItemsByToken} from "../services/apiService.js";
 import Pagination from "../components/Pagination.jsx";
+import "../css/files.css";
 
 
 const Files = () => {
@@ -54,7 +55,7 @@ const Files = () => {
 	}
 
 	return (
-		<div className="container my-4" style={{width: "50%"}}>
+		<div className="container my-4 files-container">
 			<div className="card shadow-sm h-100">
 				<div className="card-body">
 					<h5 className="mb-4">Find Media Files</h5>

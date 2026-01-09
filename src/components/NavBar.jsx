@@ -1,5 +1,6 @@
 import {Link, NavLink} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const NavBar = () => {
     return (
@@ -11,32 +12,26 @@ const NavBar = () => {
                     <img src="logo_cow.png" alt="Logo" width="40px" height="40px" className="my-1 mx-3" />
                     Media Item API Interface
                 </Link>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto mx-4">
-                        <li className="nav-item">
-                            <NavLink className="nav-link text-white mx-1" to="/" style={({ isActive }) => ({
-                                textDecoration: isActive ? 'underline' : 'none',
-                            })}
-                            >Home</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link text-white mr-5" to="/files" style={({ isActive }) => ({
-                                textDecoration: isActive ? "underline" : "none",
-                            })}
-                            >Files</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link text-white mr-5" to="/upload" style={({ isActive }) => ({
-                                textDecoration: isActive ? "underline" : "none",
-                            })}
-                            >Upload</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link text-white mr-5" to="/token" style={({ isActive }) => ({
-                                textDecoration: isActive ? "underline" : "none",
-                            })}
-                            >Tokens</NavLink>
-                        </li>
+                        {[
+                            {to: "/", label: "Home"},
+                            {to: "/files", label: "Files"},
+                            {to: "/upload", label: "Upload"},
+                            {to: "/token", label: "Tokens"},
+                        ].map(({to, label}) => (
+                            <li className="nav-item" key={label}>
+                                <NavLink className="nav-link text-white mx-1" to={to} style={({ isActive }) => ({
+                                    textDecoration: isActive ? 'underline' : 'none',
+                                })}
+                                >{label}</NavLink>
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>

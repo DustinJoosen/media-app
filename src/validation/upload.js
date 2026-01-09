@@ -1,3 +1,5 @@
+// Unfortunately, this list needs to be manually synced with the API.
+
 export const blockedExtensions = [
 	".exe",
 	".dll",

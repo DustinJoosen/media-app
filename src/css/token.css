@@ -1,0 +1,10 @@
+.token-text {
+    max-width: 90%;
+    margin-bottom: 10px;
+}
+
+@media (min-width: 992px) {
+    .token-text {
+        max-width: 70%;
+    }
+}

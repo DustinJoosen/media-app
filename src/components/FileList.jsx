@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import MediaItemDeletePopup from "./Popups/MediaItemDeletePopup.jsx";
 import token from "../pages/Token.jsx";
 import MediaItemModifyPopup from "./Popups/MediaItemModifyPopup.jsx";
+import "../css/filelist.css";
 
 const FileList = ({ files, setFiles, token }) => {
 	const [isPreviewOpen, setIsPreviewOpen] = useState(false);
@@ -88,7 +89,7 @@ const FileList = ({ files, setFiles, token }) => {
 				</div>
 			</div>
 			{files.map((item) => (
-				<div key={item.id} className="list-group-item list-group-item-action">
+				<div key={item.id} className="list-group-item list-group-item-action filelist-item">
 					<div className="row">
 						<div className="col-4"><span>{item.title || <i>File name not set</i>}</span></div>
 						<div className="col-2"><small>{new Date(item.createdOn).toLocaleDateString()}</small></div>

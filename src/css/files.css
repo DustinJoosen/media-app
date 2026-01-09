@@ -1,0 +1,9 @@
+.files-container {
+    max-width: 95%;
+}
+
+@media (min-width: 992px) {
+    .files-container {
+        max-width: 50%;
+    }
+}

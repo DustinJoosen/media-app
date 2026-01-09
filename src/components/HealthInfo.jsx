@@ -17,7 +17,7 @@ const HealthStatus = () => {
         };
 
         fetchHealthData();
-        const intervalId = setInterval(fetchHealthData, 10000);
+        const intervalId = setInterval(fetchHealthData, 5000);
         return () => clearInterval(intervalId);
     }, []);
 
@@ -36,7 +36,7 @@ const HealthStatus = () => {
     return (
         <div className="container mt-5">
             <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-6 mb-5">
                     <h5 className="text-center">Backend Health Status</h5>
                     <ul className="list-group">
                         <li className="list-group-item d-flex justify-content-between align-items-center">

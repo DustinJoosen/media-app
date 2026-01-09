@@ -1,11 +1,12 @@
 import TokenCreation from "../components/TokenCreation.jsx";
 import TokenInfo from "../components/TokenInfo.jsx";
+import "../css/token.css";
 
 const Token = () => {
     return (
         <div className="container my-4">
             <div className="d-flex justify-content-center">
-                <div className="text-center" style={{ maxWidth: "70%" }}>
+                <div className="text-center token-text">
                     <p className="mb-1">
                         Manage your API authentication tokens here. You can create new tokens or retrieve information about existing ones.
                     </p>
