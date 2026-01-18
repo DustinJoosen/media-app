@@ -34,4 +34,4 @@ jobs:
           docker rm -f temp-build || true &&
           docker create --name temp-build media-app-build &&
           docker cp temp-build:/app/dist /home/syter/Services/media-app &&
-          docker rm temp-build &&"
+          docker rm temp-build"
