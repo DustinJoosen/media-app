@@ -30,4 +30,4 @@ jobs:
         run: ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
           docker pull media-app:latest || true &&
           docker rm -f media-app || true &&
-          docker run -d --name media-app -p 9002:80 --restart unless-stopped media-app:latest
+          docker run -d --name media-app -p 9002:80 --restart unless-stopped media-app:latest"
