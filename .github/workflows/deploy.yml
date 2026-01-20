@@ -19,19 +19,15 @@ jobs:
           ssh-private-key: ${{ secrets.SERVER_SSH_KEY }}
 
       - name: Build Docker image
-        run: docker build -t media-app-build .
+        run: docker build -t media-app:latest .
 
       - name: Add server to known_hosts
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Deploy build folder to server
+      - name: Deploy Docker container to server
         run: ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
-          rm -rf /home/syter/Services/media-app &&
-          mkdir -p /home/syter/Services/media-app &&
-
-          docker rm -f temp-build || true &&
-          docker create --name temp-build media-app-build &&
-          docker cp temp-build:/app/dist /home/syter/Services/media-app &&
-          docker rm temp-build"
+          docker pull media-app:latest || true &&
+          docker rm -f media-app || true &&
+          docker run -d --name media-app -p 9002:80 --restart unless-stopped media-app:latest
