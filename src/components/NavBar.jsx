@@ -10,7 +10,7 @@ const NavBar = () => {
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/">
                     <img src="logo_cow.png" alt="Logo" width="40px" height="40px" className="my-1 mx-3" />
-                    Media Item API Interface :D
+                    Media Item API Interface
                 </Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
